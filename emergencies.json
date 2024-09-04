@@ -1,0 +1,212 @@
+{
+    "emergencies" :[
+    {
+        "emergency": "Patient is not breathing",
+        "next_step": "Start CPR immediately. Position your hands on the center of the patient's chest and push hard and fast at a rate of 100-120 compressions per minute. Ensure the airway is clear and give rescue breaths every 30 compressions."
+    },
+    {
+        "emergency": "Severe bleeding",
+        "next_step": "Apply direct pressure to the wound using a clean cloth or bandage. Elevate the injured area above the heart if possible. Do not remove the cloth even if it becomes soaked with blood; instead, add more layers."
+    },
+    {
+        "emergency": "Chest pain",
+        "next_step": "Have the patient sit down and remain calm. Loosen any tight clothing. If the patient has prescribed nitroglycerin, help them take it. Monitor the patient’s condition and be prepared to start CPR if necessary."
+    },
+    {
+        "emergency": "Burns",
+        "next_step": "Cool the burn with running water for at least 10 minutes. Do not apply ice, creams, or oily substances. Cover the burn with a sterile, non-stick bandage or clean cloth. Avoid bursting any blisters."
+    },
+    {
+        "emergency": "Fracture",
+        "next_step": "Keep the injured limb in the position you found it and immobilize it with a splint or by securing it to an uninjured body part. Do not try to realign the bone. Apply a cold pack to reduce swelling and pain."
+    },
+    {
+        "emergency": "Choking",
+        "next_step": "If the person cannot cough, speak, or breathe, perform the Heimlich maneuver. Stand behind the person, place your arms around their waist, and press inward and upward with quick thrusts until the object is expelled."
+    },
+    {
+        "emergency": "Stroke symptoms",
+        "next_step": "Check the patient's face, arms, and speech for signs of a stroke. Have them smile, raise both arms, and speak a simple sentence. If they show weakness on one side or slurred speech, keep them calm and monitor their condition."
+    },
+    {
+        "emergency": "Seizure",
+        "next_step": "Do not restrain the person. Clear the area of any sharp or dangerous objects. Place something soft under their head. Once the seizure ends, turn the person onto their side in a recovery position. Monitor their breathing."
+    },
+    {
+        "emergency": "Poisoning",
+        "next_step": "Try to identify the substance and quantity ingested. Do not induce vomiting unless instructed by a professional. If the person is unconscious but breathing, place them in the recovery position and monitor closely."
+    },
+    {
+        "emergency": "Allergic reaction",
+        "next_step": "Administer an epinephrine auto-injector (EpiPen) if available. Have the person lie down and raise their legs to prevent shock. Monitor their condition and be prepared to start CPR if breathing stops."
+    },
+    {
+        "emergency": "Head injury",
+        "next_step": "Keep the patient still and avoid moving their head or neck. If the patient is unconscious, check their breathing and pulse. Apply a cold pack to reduce swelling. Monitor their condition closely."
+    },
+    {
+        "emergency": "Asthma attack",
+        "next_step": "Help the patient sit upright and encourage them to take slow, deep breaths. Administer a fast-acting inhaler if they have one. If the symptoms do not improve, seek emergency medical help immediately."
+    },
+    {
+        "emergency": "Heatstroke",
+        "next_step": "Move the patient to a cooler place and remove excess clothing. Apply cool water to the skin and fan them to lower body temperature. Offer sips of water if the person is conscious and able to drink."
+    },
+    {
+        "emergency": "Hypothermia",
+        "next_step": "Move the patient to a warm area and remove any wet clothing. Wrap them in warm blankets and offer warm (non-alcoholic) drinks if they are conscious. Do not apply direct heat, such as hot water or heating pads."
+    },
+    {
+        "emergency": "Heart attack",
+        "next_step": "Have the patient sit down, stay calm, and loosen any tight clothing. If available, administer aspirin. Monitor their condition and be prepared to start CPR if necessary."
+    },
+    {
+        "emergency": "Electric shock",
+        "next_step": "Turn off the source of electricity if possible. Do not touch the patient if they are still in contact with the electrical source. Once safe, check for breathing and pulse, and begin CPR if needed."
+    },
+    {
+        "emergency": "Drowning",
+        "next_step": "Get the patient out of the water and check for breathing. Begin CPR if the patient is not breathing. Place the patient in the recovery position once they begin to breathe on their own."
+    },
+    {
+        "emergency": "Eye injury",
+        "next_step": "Do not rub or apply pressure to the eye. Rinse the eye with clean water if a chemical substance is involved. Cover the injured eye with a sterile bandage or clean cloth and seek immediate medical help."
+    },
+    {
+        "emergency": "Animal bite",
+        "next_step": "Clean the wound with soap and water to reduce infection risk. Apply a clean bandage to the wound. If the bite is severe or the animal may be rabid, seek medical attention immediately."
+    },
+    {
+        "emergency": "Snake bite",
+        "next_step": "Keep the patient calm and still to slow the spread of venom. Position the bitten area at or below the level of the heart. Apply a loose bandage above the bite to slow the venom's spread. Do not apply ice or attempt to suck out the venom."
+    },
+    {
+        "emergency": "Broken tooth",
+        "next_step": "Rinse the mouth with warm water. Apply a cold compress to reduce swelling. Save any broken tooth fragments in milk or saline and seek dental care immediately."
+    },
+    {
+        "emergency": "High fever",
+        "next_step": "Keep the patient hydrated and cool by removing excess clothing and applying a cool cloth to the forehead. Administer fever-reducing medication as directed. Seek medical help if the fever is very high or persistent."
+    },
+    {
+        "emergency": "Panic attack",
+        "next_step": "Encourage the patient to breathe slowly and deeply, counting to four as they inhale and exhale. Reassure them that they are safe and that the symptoms will pass. Avoid sudden movements or loud noises."
+    },
+    {
+        "emergency": "Vomiting and diarrhea",
+        "next_step": "Keep the patient hydrated by offering small sips of water or oral rehydration solution. Avoid giving solid food until symptoms improve. Monitor for signs of dehydration and seek medical help if necessary."
+    },
+    {
+        "emergency": "Nosebleed",
+        "next_step": "Have the patient sit down and lean slightly forward. Pinch the soft part of the nose for 10-15 minutes and apply a cold compress to the bridge of the nose. If bleeding persists, seek medical attention."
+    },
+    {
+        "emergency": "Sunburn",
+        "next_step": "Cool the affected area with lukewarm water and apply aloe vera gel or a moisturizing lotion. Avoid further sun exposure until the skin heals. If blisters develop or the burn is severe, seek medical help."
+    },
+    {
+        "emergency": "Hypoglycemia",
+        "next_step": "Give the patient a quick source of sugar, such as juice or glucose tablets. If the patient is conscious, follow with a snack containing complex carbohydrates. If unconscious, seek emergency medical help immediately."
+    },
+    {
+        "emergency": "Hyperglycemia",
+        "next_step": "If the patient has insulin, help them administer it as prescribed. Keep the patient hydrated with water. Monitor their condition and seek medical help if symptoms worsen."
+    },
+    {
+        "emergency": "Overdose",
+        "next_step": "Try to identify the substance and quantity taken. Do not induce vomiting unless directed by a professional. If the patient is unconscious but breathing, place them in the recovery position and monitor closely."
+    },
+    {
+        "emergency": "Fainting",
+        "next_step": "Have the patient lie down and elevate their legs to improve blood flow. Loosen any tight clothing and ensure they have fresh air. If the patient does not regain consciousness within a minute, seek medical help."
+    },
+    {
+        "emergency": "Blister",
+        "next_step": "Clean the area with soap and water. Cover the blister with a sterile bandage or gauze. Avoid popping the blister, as this increases the risk of infection. If the blister bursts, clean and cover it with a clean dressing."
+    },
+    {
+        "emergency": "Sprain",
+        "next_step": "Apply ice to the injured area to reduce swelling and pain. Elevate the limb and avoid putting weight on it. Use a compression bandage to support the joint. Seek medical help if the pain or swelling is severe."
+    },
+    {
+        "emergency": "Torn muscle",
+        "next_step": "Rest the injured muscle and avoid activities that cause pain. Apply ice to reduce swelling and pain. Use an elastic bandage to compress the area. Elevate the injured limb above the level of the heart."
+    },
+    {
+        "emergency": "Anaphylactic shock",
+        "next_step": "Administer an epinephrine auto-injector (EpiPen) immediately. Keep the person lying down with their legs elevated. Monitor their breathing and be ready to perform CPR if necessary."
+    },
+    {
+        "emergency": "Hemorrhagic shock",
+        "next_step": "Lay the patient down and elevate their legs to improve blood flow. Apply pressure to any visible bleeding. Keep them calm and seek emergency medical assistance immediately."
+    },
+    {
+        "emergency": "Cyanotic (blue) skin",
+        "next_step": "Check the patient's airway and breathing. If they are unresponsive, start CPR immediately. Ensure the scene is safe and call for emergency help."
+    },
+    {
+        "emergency": "Choking in infants",
+        "next_step": "Position the infant face down on your forearm and give five gentle back blows between the shoulder blades. If the infant is still choking, turn them over and give five chest thrusts. Seek emergency assistance if needed."
+    },
+    {
+        "emergency": "Foreign object in the eye",
+        "next_step": "Do not rub the eye. Rinse it with clean water or saline solution, holding the eyelid open. If the object does not come out, cover the eye with a clean cloth and seek medical attention."
+    },
+    {
+        "emergency": "Puncture wound",
+        "next_step": "Do not remove the object if it is still embedded in the wound. Apply gentle pressure to stop any bleeding and cover the wound with a sterile dressing. Seek medical attention for proper treatment."
+    },
+    {
+        "emergency": "Heat exhaustion",
+        "next_step": "Move the person to a cooler area and provide them with fluids. Have them lie down and loosen their clothing. Apply cool cloths to their skin and monitor their condition closely."
+    },
+    {
+        "emergency": "Child with a high fever and rash",
+        "next_step": "Keep the child hydrated and comfortable. Monitor the fever and rash closely. Seek medical attention if the rash spreads or if the fever persists."
+    },
+    {
+        "emergency": "Severe back pain after injury",
+        "next_step": "Have the patient remain still and avoid moving. Apply ice to the affected area to reduce swelling. Seek medical help for further evaluation and treatment."
+    },
+    {
+        "emergency": "Black widow spider bite",
+        "next_step": "Keep the patient calm and immobilize the affected area. Apply ice to reduce swelling and pain. Seek medical help immediately for appropriate treatment."
+    },
+    {
+        "emergency": "Heat cramps",
+        "next_step": "Move the person to a cooler place and have them rest. Provide them with water or an electrolyte drink. Gently stretch and massage the affected muscles."
+    },
+    {
+        "emergency": "Fainting during pregnancy",
+        "next_step": "Have the patient lie on their left side to improve blood flow. Loosen tight clothing and provide fresh air. Monitor their condition and seek medical help if symptoms persist."
+    },
+    {
+        "emergency": "Acid or chemical exposure",
+        "next_step": "Remove contaminated clothing and rinse the affected area with copious amounts of water for at least 15 minutes. Seek medical help immediately for further evaluation."
+    },
+    {
+        "emergency": "Severe nausea",
+        "next_step": "Help the patient sit or lie down in a comfortable position. Offer small sips of clear fluids, like water or ginger ale. Seek medical help if nausea persists or worsens."
+    },
+    {
+        "emergency": "Ruptured eardrum",
+        "next_step": "Keep the patient calm and avoid getting water in the ear. Do not insert anything into the ear canal. Seek medical attention for proper diagnosis and treatment."
+    },
+    {
+        "emergency": "Insect sting with swelling",
+        "next_step": "Remove the stinger if visible and clean the area with soap and water. Apply a cold compress to reduce swelling and pain. Monitor for allergic reactions and seek medical help if necessary."
+    },
+    {
+        "emergency": "Hypotension (low blood pressure)",
+        "next_step": "Have the patient lie down with their legs elevated. Keep them calm and monitor their condition. Offer fluids if they are conscious and able to drink."
+    },
+    {
+        "emergency": "Hyperthermia",
+        "next_step": "Move the person to a cooler environment and remove excess clothing. Provide cool drinks and apply wet cloths to the skin. Seek medical attention if symptoms do not improve."
+    },
+    {
+        "emergency": "Chronic obstructive pulmonary disease (COPD) exacerbation",
+        "next_step": "Help the patient sit upright and encourage slow, deep breaths. If they have a prescribed inhaler, assist them in using it. Monitor their condition and seek medical help if breathing does not improve."
+    }
+]
+}

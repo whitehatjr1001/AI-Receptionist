@@ -1,0 +1,6 @@
+google-cloud-aiplatform
+flask
+openai 
+python-dotenv
+pinecone-client
+sentence-transformers
