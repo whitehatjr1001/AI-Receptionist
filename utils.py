@@ -1,20 +1,23 @@
-import aiohttp
-import asyncio
-import google.generativeai as genai
 import os
-from dotenv import load_dotenv
-import pinecone
-import streamlit as st
 import requests
+import pinecone
+import google.generativeai as genai
+import streamlit as st
+from dotenv import load_dotenv
 
+# Load environment variables
 load_dotenv()
 
+# Constants
 GOOGLE_API_KEY = os.getenv('GOOGLE_API_KEY')
-genai.configure(api_key=GOOGLE_API_KEY)
-MAPS_API = 'AIzaSyAro-9KF0bUKH2prdqjOzbqR6inH1n1Gqk'
+MAPS_API_KEY = 'AIzaSyAro-9KF0bUKH2prdqjOzbqR6inH1n1Gqk'
 PINECONE_API_KEY = '923773a3-bc74-4a9b-85a4-c5dff73509de'
 PINECONE_API_ENV = 'us-east-1'
 
+# Configure Google API
+genai.configure(api_key=GOOGLE_API_KEY)
+
+# Initialize Pinecone
 pc = pinecone.Pinecone(api_key=PINECONE_API_KEY, environment=PINECONE_API_ENV)
 index = pc.Index("emergency-index")
 
@@ -22,12 +25,15 @@ index = pc.Index("emergency-index")
 def get_pinecone_index():
     return index
 
-def query_emergency(emergency_query, similarity_threshold=0.88):
-    query_vector = pc.inference.embed(
+def embed_text(text):
+    return pc.inference.embed(
         "multilingual-e5-large",
-        [emergency_query],
+        [text],
         parameters={"input_type": "passage"}
     )[0]['values']
+
+def query_emergency(emergency_query, similarity_threshold=0.88):
+    query_vector = embed_text(emergency_query)
     
     result = index.query(
         vector=query_vector,
@@ -44,16 +50,32 @@ def query_emergency(emergency_query, similarity_threshold=0.88):
 
 def get_eta(source, dest):
     url = 'https://maps.googleapis.com/maps/api/distancematrix/json?'
-    full_url = url + 'origins=' + source + '&destinations=' + dest + '&key=' + MAPS_API
+    params = {
+        'origins': source,
+        'destinations': dest,
+        'key': MAPS_API_KEY
+    }
     
-    response = requests.get(full_url)
-    x = response.json()
+    response = requests.get(url, params=params)
+    data = response.json()
     
-    duration = x['rows'][0]['elements'][0]['duration']['text']
+    duration = data['rows'][0]['elements'][0]['duration']['text']
     return duration
 
-def llm_generation(user_input):
-    system_prompt = """
+def get_llm_model():
+    return genai.GenerativeModel(
+        model_name="gemini-1.5-flash-8b-exp-0827",
+        generation_config={
+            "temperature": 1,
+            "top_p": 0.95,
+            "top_k": 64,
+            "max_output_tokens": 8192,
+            "response_mime_type": "text/plain",
+        }
+    )
+
+def get_system_prompt():
+    return """
     You are an AI receptionist for Dr. Adrian, tasked with assisting users in both emergency and non-emergency situations. Your responsibilities include:
 
     1. **Handling Emergencies**:
@@ -77,19 +99,12 @@ def llm_generation(user_input):
 
     4. **General Information and Appointment Scheduling**:
        - Provide accurate information about Dr. Adrian's services, scheduling, and other non-emergency queries.
-    make the responses as short  as possible
+    make the responses as short as possible
     """
 
-    model = genai.GenerativeModel(
-        model_name="gemini-1.5-flash-8b-exp-0827",
-        generation_config={
-            "temperature": 1,
-            "top_p": 0.95,
-            "top_k": 64,
-            "max_output_tokens": 8192,
-            "response_mime_type": "text/plain",
-        }
-    )
+def llm_generation(user_input):
+    model = get_llm_model()
+    system_prompt = get_system_prompt()
 
     chat_session = model.start_chat(
         history=[{
@@ -99,4 +114,16 @@ def llm_generation(user_input):
     )
 
     response = chat_session.send_message(user_input)
+    return response.text
+
+def analyze_sentiment(text):
+    model = get_llm_model()
+    prompt = f"Analyze the sentiment and intent of the following text. Determine if it's an emergency, a message for Dr. Adrian, a medical question, or something else. Text: {text}"
+    response = model.generate_content(prompt)
+    return response.text
+
+def get_situation_awareness(context):
+    model = get_llm_model()
+    prompt = f"Based on the following conversation context, determine the current situation and what information or action is needed next. Context: {context}"
+    response = model.generate_content(prompt)
     return response.text

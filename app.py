@@ -1,100 +1,93 @@
 import streamlit as st
-import time
 from utils import query_emergency, get_eta, llm_generation
 
 def initialize_session_state():
-    if 'messages' not in st.session_state:
-        st.session_state.messages = []
-    if 'state' not in st.session_state:
-        st.session_state.state = "awaiting_message_type"
-    if 'emergency_description' not in st.session_state:
-        st.session_state.emergency_description = None
-    if 'emergency_response' not in st.session_state:
-        st.session_state.emergency_response = None
-    if 'location' not in st.session_state:
-        st.session_state.location = None
-    if 'eta' not in st.session_state:
-        st.session_state.eta = None
-    if 'emergency_start_time' not in st.session_state:
-        st.session_state.emergency_start_time = None
+    st.session_state.messages = []
+    st.session_state.state = "awaiting_message_type"
+    st.session_state.emergency_description = None
+    st.session_state.emergency_response = None
+    st.session_state.location = None
+    st.session_state.eta = None
+
+def get_conversation_history():
+    return "\n".join([f"{role}: {content}" for role, content in st.session_state.messages])
 
 def get_llm_response(instruction, user_input=None):
-    prompt = f"{instruction}\n\nUser: {user_input}" if user_input else instruction
+    conversation_history = get_conversation_history()
+    prompt = f"Conversation history:\n{conversation_history}\n\nCurrent state: {st.session_state.state}\n\nInstruction: {instruction}\n\nUser: {user_input}"
     return llm_generation(prompt)
 
 def main():
-    st.title("Dr. Adrian's AI Receptionist")
-    initialize_session_state()
+    st.title("Dr. Adrian's AI Medical Assistant")
+    
+    if 'initialized' not in st.session_state:
+        initialize_session_state()
+        st.session_state.initialized = True
 
-    for message in st.session_state.messages:
-        st.chat_message(message["role"]).write(message["content"])
+    for role, content in st.session_state.messages:
+        st.chat_message(role).write(content)
 
     if st.session_state.state == "awaiting_message_type" and not st.session_state.messages:
-        initial_greeting = get_llm_response("Greet the user and ask if they are experiencing an emergency or would like to leave a message. Keep the response concise.")
+        initial_greeting = get_llm_response("Greet the user as Dr. Adrian's AI assistant and ask if they are experiencing an emergency or would like to leave a message. Keep the response concise and professional.")
         st.chat_message("assistant").write(initial_greeting)
-        st.session_state.messages.append({"role": "assistant", "content": initial_greeting})
+        st.session_state.messages.append(("assistant", initial_greeting))
 
     user_input = st.chat_input("Type your message here...")
 
     if user_input:
-        st.session_state.messages.append({"role": "user", "content": user_input})
+        st.session_state.messages.append(("user", user_input))
         st.chat_message("user").write(user_input)
 
-        if st.session_state.state == "awaiting_message_type":
-            instruction = "Determine if the user is experiencing an emergency or wants to leave a message. If it's an emergency, ask for a clear description. If it's a message, ask them to provide it. If unclear, ask for clarification. Keep the response concise."
-            response = get_llm_response(instruction, user_input)
+        if any(word in user_input.lower() for word in ["no", "nothing", "stop", "end"]):
+            st.session_state.state = "ending_conversation"
+            instruction = "The user wants to end the conversation. Provide a polite closing statement. Keep the response concise and professional."
+        elif st.session_state.state == "awaiting_message_type":
             if "emergency" in user_input.lower():
                 st.session_state.state = "awaiting_emergency_description"
+                instruction = "Ask the user to describe the emergency in detail. Emphasize the importance of clear information. Keep the response concise and professional."
             elif "message" in user_input.lower():
                 st.session_state.state = "awaiting_message"
+                instruction = "Ask the user to provide their message for Dr. Adrian. Keep the response concise and professional."
+            else:
+                instruction = "The user didn't specify if it's an emergency or a message. Ask for clarification. Keep the response concise and professional."
         elif st.session_state.state == "awaiting_emergency_description":
             st.session_state.emergency_description = user_input
             st.session_state.state = "awaiting_location"
-            st.session_state.emergency_start_time = time.time()
-            instruction = "Acknowledge the emergency description and ask for the user's current location. Emphasize the importance of this information for providing assistance. Keep the response concise."
-            response = get_llm_response(instruction, user_input)
+            instruction = "Acknowledge the emergency description. Ask for the user's current location to estimate Dr. Adrian's arrival time. Keep the response concise and reassuring."
         elif st.session_state.state == "awaiting_location":
             st.session_state.location = user_input
             st.session_state.eta = get_eta("Northeast Los Angeles", user_input)
             st.session_state.state = "awaiting_eta_response"
-            instruction = f"Inform the user that Dr. Adrian's ETA is {st.session_state.eta}. Ask if this is too late for their emergency situation. Request a Yes or No answer. Keep the response concise."
-            response = get_llm_response(instruction)
+            instruction = f"Inform the user that Dr. Adrian's estimated time of arrival is {st.session_state.eta} minutes. Ask if this is too late for their emergency, requesting a clear 'Yes' or 'No' answer. Keep the response concise and professional."
         elif st.session_state.state == "awaiting_eta_response":
-            if "yes" in user_input.lower():
-                instruction = "Acknowledge that the ETA might be too long. Inform the user that you'll provide emergency instructions shortly. Reassure them and ask them to stay calm. Keep the response concise."
-                response = get_llm_response(instruction)
-                st.session_state.state = "processing_emergency"
-            elif "no" in user_input.lower():
-                instruction = "Express relief that the ETA is acceptable. Reassure the user that Dr. Adrian will arrive soon and advise them to stay calm. Keep the response concise."
-                response = get_llm_response(instruction)
+            if user_input.lower() == 'yes':
+                st.session_state.emergency_response = query_emergency(st.session_state.emergency_description)
+                instruction = f"Based on the emergency response: {st.session_state.emergency_response}, provide immediate, detailed instructions to the user. Include specific actions to take and symptoms to monitor. Emphasize the importance of following these steps until professional help arrives. Keep the response clear and reassuring."
+                st.session_state.state = "emergency_follow_up"
+            elif user_input.lower() == 'no':
+                st.session_state.emergency_response = query_emergency(st.session_state.emergency_description)
+                instruction = f"Acknowledge that the user is okay with the ETA. As a precaution, based on the emergency response: {st.session_state.emergency_response}, provide general advice and things to monitor. Keep the response calm and reassuring."
                 st.session_state.state = "awaiting_message_type"
             else:
-                instruction = "Politely ask the user to clarify with a Yes or No answer regarding whether the ETA is too late. Keep the response concise."
-                response = get_llm_response(instruction)
+                instruction = "The user didn't provide a clear Yes or No answer. Politely ask again if Dr. Adrian's ETA is too late for their emergency, emphasizing the need for a Yes or No response."
+        elif st.session_state.state == "emergency_follow_up":
+            instruction = f"The user is asking a follow-up question about the emergency: '{user_input}'. Based on the previous emergency response: {st.session_state.emergency_response}, provide a detailed and relevant answer. Keep the response clear, concise, and focused on the emergency situation."
         elif st.session_state.state == "awaiting_message":
-            instruction = "Confirm receipt of the message for Dr. Adrian. Assure the user it will be delivered promptly. Ask if there's anything else they need assistance with. Keep the response concise."
-            response = get_llm_response(instruction, user_input)
+            instruction = "Confirm receipt of the message for Dr. Adrian. Assure the user it will be delivered promptly. Ask if there's anything else they need assistance with. Keep the response concise and professional."
             st.session_state.state = "awaiting_message_type"
         else:
-            response = get_llm_response("Respond to the user's input appropriately based on the context of the conversation. Keep the response concise.", user_input)
+            instruction = "Respond to the user's input appropriately based on the context of the conversation. If they need further assistance, offer help. Keep the response concise and professional."
 
+        response = get_llm_response(instruction, user_input)
         st.chat_message("assistant").write(response)
-        st.session_state.messages.append({"role": "assistant", "content": response})
+        st.session_state.messages.append(("assistant", response))
 
-    if st.session_state.state == "processing_emergency":
-        with st.empty():
-            for i in range(15):
-                st.write(f"Processing emergency... {15-i} seconds remaining")
-                time.sleep(1)
-                st.empty()
-            
-            emergency_response = query_emergency(st.session_state.emergency_description)
-            st.session_state.emergency_response = emergency_response
-            instruction = f"Provide emergency instructions based on the following: {emergency_response}. Reassure the user and emphasize the importance of following these steps until Dr. Adrian arrives. Keep the response concise but clear."
-            response = get_llm_response(instruction)
-            st.chat_message("assistant").write(response)
-            st.session_state.messages.append({"role": "assistant", "content": response})
-            st.session_state.state = "awaiting_message_type"
+        if st.session_state.state == "ending_conversation":
+            st.stop()
+
+    if st.button("Start New Conversation"):
+        initialize_session_state()
+        st.rerun()
 
 if __name__ == "__main__":
     main()
