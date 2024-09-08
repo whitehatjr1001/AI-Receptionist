@@ -10,9 +10,9 @@ load_dotenv()
 
 # Constants
 GOOGLE_API_KEY = os.getenv('GOOGLE_API_KEY')
-MAPS_API_KEY = 'AIzaSyAro-9KF0bUKH2prdqjOzbqR6inH1n1Gqk'
-PINECONE_API_KEY = '923773a3-bc74-4a9b-85a4-c5dff73509de'
-PINECONE_API_ENV = 'us-east-1'
+MAPS_API_KEY = os.getenv('MAPS_API_KEY')
+PINECONE_API_KEY = os.getenv('PINECONE_API_KEY')
+PINECONE_API_ENV = os.getenv('PINECONE_API_ENV')
 
 # Configure Google API
 genai.configure(api_key=GOOGLE_API_KEY)
