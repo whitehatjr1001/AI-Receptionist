@@ -14,7 +14,11 @@ This project is an AI-powered emergency response system that provides immediate 
 
 Here's a quick demo of the Emergency Response AI Assistant in action:
 
-https://github.com/whitehatjr1001/AI-Receptionist/blob/main/assets/DEMO%20-%20Made%20with%20Clipchamp.mp4
+
+
+https://github.com/user-attachments/assets/b04da550-ce01-4010-a774-cb5f0c16ceb5
+
+ist/blob/main/assets/DEMO%20-%20Made%20with%20Clipchamp.mp4
 
 
 ## Project Structure
@@ -28,7 +32,7 @@ https://github.com/whitehatjr1001/AI-Receptionist/blob/main/assets/DEMO%20-%20Ma
 
 1. Clone the repository:
    ```
-   git clone https://github.com/your-username/emergency-response-ai.git
+   git clone https://github.com/whitehatjr1001/emergency-response-ai.git
    cd emergency-response-ai
    ```
 
