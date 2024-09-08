@@ -14,7 +14,7 @@ This project is an AI-powered emergency response system that provides immediate 
 
 Here's a quick demo of the Emergency Response AI Assistant in action:
 
-[![Emergency Response AI Assistant Demo](https://github.com/whitehatjr1001/AI-Receptionist/blob/main/assets/streamlit-app-2024-09-08-13-09-21.webm)]
+https://github.com/whitehatjr1001/AI-Receptionist/assets/streamlit-app-2024-09-08-13-09-21.webm
 
 ## Project Structure
 
