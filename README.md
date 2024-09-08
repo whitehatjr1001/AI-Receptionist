@@ -18,7 +18,6 @@ Here's a quick demo of the Emergency Response AI Assistant in action:
 
 https://github.com/user-attachments/assets/b04da550-ce01-4010-a774-cb5f0c16ceb5
 
-ist/blob/main/assets/DEMO%20-%20Made%20with%20Clipchamp.mp4
 
 
 ## Project Structure
