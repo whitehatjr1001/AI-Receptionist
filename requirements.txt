@@ -1,6 +1,5 @@
-google-cloud-aiplatform
-flask
-openai 
-python-dotenv
+streamlit
 pinecone-client
-sentence-transformers
+google-generativeai
+python-dotenv
+requests
