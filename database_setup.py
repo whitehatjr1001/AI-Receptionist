@@ -4,9 +4,8 @@ import json
 
 # Initialize Pinecone
 PINECONE_API_KEY = os.getenv('PINECONE_API_KEY')
-PINECONE_API_ENV = os.getenv('PINECONE_API_ENV')
 
-pc = pinecone.Pinecone(api_key=PINECONE_API_KEY, environment=PINECONE_API_ENV)
+pc = pinecone.Pinecone(api_key=PINECONE_API_KEY)
 
 # Create index if it doesn't exist
 index_name = "emergency-index"
